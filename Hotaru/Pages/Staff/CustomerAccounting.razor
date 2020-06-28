@@ -1,0 +1,79 @@
+﻿@page "/staff/customeraccouting"
+@page "/staff/customeraccouting/{customerId:int}"
+@using Hotaru.shared.Models
+<div class="main">
+    <div class="row">
+        <div class="col-4">
+            <BSCard CardType="CardType.Card">
+
+                <BSCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="https://upload.wikimedia.org/wikipedia/vi/6/65/Naruto-Opening01_222.jpg" alt="Card image cap" />
+
+                <BSCard CardType="CardType.Body">
+
+                    <BSCard CardType="CardType.Title">@model.Name</BSCard>
+
+                    <BSCard CardType="CardType.Subtitle">@model.Ages years old</BSCard>
+
+                    <BSCard CardType="CardType.Text">
+
+                        Programer professional
+
+                    </BSCard>
+                </BSCard>
+
+            </BSCard>
+        </div>
+        <div class="col-8 pd-20">
+            <h3>
+                <span class="mr-2 oi oi-calculator"></span>
+                Accounting
+            </h3>
+            <div class="row">
+                <div class="col-12 pb-3">
+                    Date and time pick in advance:
+                </div>
+                <div class="col-8 pb-3">
+                    <BSBasicInput InputType="InputType.Date" Value="@datePIA" IsDisabled="true"></BSBasicInput>
+                </div>
+                <div class="col-4 pb-3">
+                    <BSBasicInput InputType="InputType.Text" Value="TPIA" IsDisabled="true"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Date and time return:
+                </div>
+                <div class="col-8 pb-3">
+                    <BSBasicInput InputType="InputType.Date" Value="DateTime.Now"></BSBasicInput>
+                </div>
+                <div class="col-4 pb-3 time">
+                    <BSBasicInput InputType="InputType.Text" Value="string.Empty"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Room:
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Text" Value="@RoomName"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Additional fee:
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.TextArea" Value="string.Empty"></BSBasicInput>
+                </div>
+                <BSButton Color="Color.Info" Size="Size.Large" Class="float-right">Accounting</BSButton>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public int CustomerID { get; set; }
+    string TPIA;
+    public DateTime datePIA;
+    public string RoomName = "Room for 3 people";
+    UserData model = new UserData("Cella Marcelo", "mrcl@gmail.com", "1", "0982481842", "1st Washington", 32);
+    protected override void OnInitialized()
+    {
+        datePIA = new DateTime(2020, 6, 20);
+        TPIA = "7:00AM";
+    }
+}

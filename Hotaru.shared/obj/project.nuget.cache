@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "3wKok4rs+AOdqUxcAnNB2GDNELjTgF3hkBhYPn9w1fAAD42o15t7Iu0VkK8QtDrk5AOMqnSb7bUuLARhZ3QN8w==",
+  "success": true,
+  "projectFilePath": "G:\\Desktop\\project\\Hotaru\\Hotaru.shared\\Hotaru.shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Kazekage\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Kazekage\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\Kazekage\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

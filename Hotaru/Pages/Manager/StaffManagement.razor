@@ -1,0 +1,305 @@
+﻿@page "/manager/staffmanagement"
+@page "/manager/staffmanagement/{pageId:int}"
+@layout Hotaru.Shared.LayOut.ManagerLayout
+@inject NavigationManager nvg
+@using Hotaru.shared.Models
+<div class="main">
+    <div class="col-12">
+        <div class="row">
+            <div class="input-group mb-3 col-11">
+                <input type="text" class="form-control" placeholder="Staff name" @bind-value="srchStr">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" @onclick="search">Search</button>
+                </div>
+            </div>
+            <BSButton Class="float-right" Color=Color.Primary Size=Size.Large OnClick="navigateAddStaff">Add staff</BSButton>
+        </div>
+        @if ((PageId != model.MaxPages - 1) || (model.MaxObject % model.ObjectEachPage == 0))
+        {
+            for (int i = 0; i < model.ObjectEachPage / 2; i++)
+            {
+                int object1 = PageId * model.ObjectEachPage + 1 + i * 2;
+                int object2 = object1 + 1;
+                <div class="row">
+                    @if (object1 < usL.userList.Count)
+                    {
+                        <div class="media pb-5 col-6">
+                            <img class="mr-3 img-thumbnail" src="https://image.shutterstock.com/image-vector/silhouette-people-unknown-male-person-260nw-1372192277.jpg" alt="Generic placeholder image" style="width:200px;height:250px;">
+                            <div class="media-body">
+                                <label>Staff name:</label>
+                                <p class="mt-0"> @usL.userList[object1].Name</p>
+                                <label>Phone number:</label>
+                                <p>@usL.userList[object1].PhoneNumber</p>
+                                <label>Email:</label>
+                                <p>@usL.userList[object1].Email</p>
+                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="navigateToStaffView">View staff info</BSButton>
+                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => deleteStaff(object1))">Delete staff</BSButton>
+                            </div>
+                        </div>
+                    }
+                    @if (object2 < usL.userList.Count)
+                    {
+                        <div class="media pb-5 col-6">
+                            <img class="mr-3 img-thumbnail" src="https://image.shutterstock.com/image-vector/silhouette-people-unknown-male-person-260nw-1372192277.jpg" alt="Generic placeholder image" style="width:200px;height:250px;">
+                            <div class="media-body">
+                                <label>Staff name:</label>
+                                <p class="mt-0"> @usL.userList[object2].Name</p>
+                                <label>Phone number:</label>
+                                <p>@usL.userList[object2].PhoneNumber</p>
+                                <label>Email:</label>
+                                <p>@usL.userList[object2].Email</p>
+                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="navigateToStaffView">View staff info</BSButton>
+                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall  OnClick="@(() => deleteStaff(object2))">Delete staff</BSButton>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            for (int i = 0; i < (model.MaxObject % model.ObjectEachPage + 1) / 2; i++)
+            {
+                int object1 = PageId * model.ObjectEachPage + 1 + i * 2;
+                int object2 = object1 + 1;
+                <div class="row">
+                    @if (object1 < usL.userList.Count)
+                    {
+                        <div class="media pb-5 col-6">
+                            <img class="mr-3 img-thumbnail" src="https://image.shutterstock.com/image-vector/silhouette-people-unknown-male-person-260nw-1372192277.jpg" alt="Generic placeholder image" style="width:200px;height:250px;">
+                            <div class="media-body">
+                                <label>Staff name:</label>
+                                <p class="mt-0"> @usL.userList[object1].Name</p>
+                                <label>Phone number:</label>
+                                <p>@usL.userList[object1].PhoneNumber</p>
+                                <label>Email:</label>
+                                <p>@usL.userList[object1].Email</p>
+                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="navigateToStaffView">View staff info</BSButton>
+                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => deleteStaff(object1))">Delete staff</BSButton>
+                            </div>
+                        </div>
+                    }
+                    @if (object2 < usL.userList.Count)
+                    {
+                        <div class="media pb-5 col-6">
+                            <img class="mr-3 img-thumbnail" src="https://image.shutterstock.com/image-vector/silhouette-people-unknown-male-person-260nw-1372192277.jpg" alt="Generic placeholder image" style="width:200px;height:250px;">
+                            <div class="media-body">
+                                <label>Staff name:</label>
+                                <p class="mt-0"> @usL.userList[object2].Name</p>
+                                <label>Phone number:</label>
+                                <p>@usL.userList[object2].PhoneNumber</p>
+                                <label>Email:</label>
+                                <p>@usL.userList[object2].Email</p>
+                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="navigateToStaffView">View staff info</BSButton>
+                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => deleteStaff(object2))">Delete staff</BSButton>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+    <BSPagination Alignment="Alignment.Center">
+        <BSPaginationItem IsDisabled="IsFirstPage()">
+
+            <BSPaginationLink Href="@URLPage(PageId - 1)" PaginationLinkType="PaginationLinkType.PreviousText"></BSPaginationLink>
+
+        </BSPaginationItem>
+        @if (model.MaxPages < 10)
+            for (int i = 0; i < model.MaxPages; i++)
+            {
+                if (PageId == i)
+                {
+                    int numPage = i;
+                    <BSPaginationItem IsActive="true">
+
+                        <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                    </BSPaginationItem>
+                }
+                else
+                {
+                    int numPage = i;
+                    <BSPaginationItem IsActive="false">
+
+                        <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                    </BSPaginationItem>
+                }
+            }
+        else
+        {
+            if (PageId < 10)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (PageId == i)
+                    {
+                        int numPage = i;
+                        <BSPaginationItem IsActive="true">
+
+                            <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                        </BSPaginationItem>
+                    }
+                    else
+                    {
+                        int numPage = i;
+                        <BSPaginationItem IsActive="false">
+
+                            <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                        </BSPaginationItem>
+                    }
+                }
+                <BSPaginationItem IsDisabled="true">
+
+                    <BSPaginationLink Href="">...</BSPaginationLink>
+
+                </BSPaginationItem>
+            }
+            else
+            {
+                if (PageId != model.MaxPages - 1)
+                {
+                    <BSPaginationItem IsDisabled="true">
+
+                        <BSPaginationLink Href="">...</BSPaginationLink>
+
+                    </BSPaginationItem>
+                    for (int i = PageId - 9; i < PageId + 1; i++)
+                    {
+                        if (PageId == i)
+                        {
+                            int numPage = i;
+                            <BSPaginationItem IsActive="true">
+
+                                <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                            </BSPaginationItem>
+                        }
+                        else
+                        {
+                            int numPage = i;
+                            <BSPaginationItem IsActive="false">
+
+                                <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                            </BSPaginationItem>
+                        }
+                    }
+                    <BSPaginationItem IsDisabled="true">
+
+                        <BSPaginationLink Href="">...</BSPaginationLink>
+
+                    </BSPaginationItem>
+                }
+                else
+                {
+                    <BSPaginationItem IsDisabled="true">
+
+                        <BSPaginationLink Href="">...</BSPaginationLink>
+
+                    </BSPaginationItem>
+                    for (int i = PageId - 9; i < PageId + 1; i++)
+                    {
+                        if (PageId == i)
+                        {
+                            int numPage = i;
+                            <BSPaginationItem IsActive="true">
+
+                                <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                            </BSPaginationItem>
+                        }
+                        else
+                        {
+                            int numPage = i;
+                            <BSPaginationItem IsActive="false">
+
+                                <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                            </BSPaginationItem>
+                        }
+                    }
+                }
+            }
+        }
+
+        <BSPaginationItem IsDisabled="IsFinalPage()">
+
+            <BSPaginationLink Href="@URLPage(PageId + 1)" PaginationLinkType="PaginationLinkType.NextText"></BSPaginationLink>
+
+        </BSPaginationItem>
+
+    </BSPagination>
+</div>
+@code {
+
+    [Parameter]
+    public int PageId { get; set; }
+
+    string URLPage(int numPage)
+    {
+        string temp = "/manager/staffmanagement/" + numPage.ToString();
+        return temp;
+    }
+
+    bool IsFirstPage()
+    {
+        if (PageId == 0) return true;
+        else return false;
+    }
+
+    bool IsFinalPage()
+    {
+        if (PageId == model.MaxPages - 1) return true;
+        else return false;
+    }
+
+    Pagination model = new Pagination(45, 8);
+
+    UserList Org = new UserList(45);
+
+    UserList usL;
+
+    protected override void OnInitialized()
+    {
+        usL = Org;
+    }
+
+    string srchStr = string.Empty;
+
+    void search()
+    {
+        nvg.NavigateTo("/manager/staffmanagement");
+        usL = new UserList();
+        UserData emptyUser = new UserData();
+        usL.userList.Add(emptyUser);
+        for (int i = 1; i < Org.userList.Count; i++)
+        {
+            if (Org.userList[i].Name.Contains(srchStr, StringComparison.OrdinalIgnoreCase))
+                usL.userList.Add(Org.userList[i]);
+        }
+        model = new Pagination(usL.userList.Count, 8);
+    }
+
+    void navigateToStaffView()
+    {
+        nvg.NavigateTo("manager/staffview");
+    }
+
+    void deleteStaff(int num)
+    {
+        UserData temp = usL.userList[num];
+        Org.userList.Remove(temp);
+        usL.userList.Remove(temp);
+        model = new Pagination(usL.userList.Count, 8);
+        nvg.NavigateTo("/manager/staffmanagement");
+    }
+
+    void navigateAddStaff()
+    {
+        nvg.NavigateTo("manager/addstaff");
+    }
+}

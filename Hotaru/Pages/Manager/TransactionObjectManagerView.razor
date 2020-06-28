@@ -1,0 +1,89 @@
+﻿@page "/manager/transactionobjectview"
+@layout Hotaru.Shared.LayOut.ManagerLayout
+@using Hotaru.shared.Models
+<div class="main">
+    <div class="row">
+        <div class="col-4">
+            <BSCard CardType="CardType.Card">
+
+                <BSCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="https://upload.wikimedia.org/wikipedia/vi/6/65/Naruto-Opening01_222.jpg" alt="Card image cap" />
+
+                <BSCard CardType="CardType.Body">
+
+                    <BSCard CardType="CardType.Title">@model.Name</BSCard>
+
+                    <BSCard CardType="CardType.Subtitle">@model.Ages years old</BSCard>
+
+
+                </BSCard>
+            </BSCard>
+        </div>
+        <div class="col-8 pd-20">
+            <h3>
+                <span class="mr-2 oi oi-info"></span>
+                About
+            </h3>
+            <div class="row">
+                <div class="col-5 pb-3">
+                    Transaction staff:
+                </div>
+                <div class="col-7 pb-3">
+                    @CT.AccountingName
+                </div>
+                <div class="col-5 pb-3">
+                    Transaction date:
+                </div>
+                <div class="col-7 pb-3">
+                    <BSBasicInput InputType="InputType.Date" Value="@CT.TransactionDate" IsDisabled="true"></BSBasicInput>
+                </div>
+                <div class="col-5 pb-3">
+                    Date check in:
+                </div>
+                <div class="col-7 pb-3">
+                    <BSBasicInput InputType="InputType.Date" Value="@CT.DatePickInAdvance" IsDisabled="true"></BSBasicInput>
+                </div>
+                <div class="col-5 pb-3">
+                    Date return:
+                </div>
+                <div class="col-7 pb-3">
+                    <BSBasicInput InputType="InputType.Date" Value="@CT.DateReturn" IsDisabled="true"></BSBasicInput>
+                </div>
+                <div class="col-5 pb-3">
+                    Total price:
+                </div>
+                <div class="col-7 pb-3">
+                    @CT.BillPrice
+                </div>
+                <div class="col-5 pb-3">
+                    Addtional fee description:
+                </div>
+                <div class="col-7 pb-3">
+                    @CT.AddtionalFeeDescription
+                </div>
+                <div class="col-5 pb-3">
+                    Addtional fee:
+                </div>
+                <div class="col-7 pb-3">
+                    @CT.AddtionalFee
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@code{
+    UserData model;
+
+    CustomerTransaction CT;
+
+    protected override void OnInitialized()
+    {
+        DateTime nowz = DateTime.Now;
+
+        DateTime nowzt = nowz.AddDays(20);
+
+        UserData model = new UserData("Cella Marcelo", "mrcl@gmail.com", "1234", "0982481842", "1st Washington", 32);
+
+        CT = new CustomerTransaction("Cella Marcelo", "Valley hotel", "Michael", nowz, nowzt, nowzt, "Room for 1 people", 100000, "No adding fee", 0);
+    }
+
+}

@@ -1,0 +1,256 @@
+﻿@page "/manager/hotel"
+@layout Hotaru.Shared.LayOut.ManagerLayout
+@using Hotaru.shared.Models
+<div class="main">
+    <div class="row">
+        <div class="col-4">
+            <BSCard CardType="CardType.Card">
+
+                <BSCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="@model.imglink" alt="Card image cap" />
+
+                <BSCard CardType="CardType.Body">
+
+                    <BSCard CardType="CardType.Title">@model.name</BSCard>
+
+                    <BSCard CardType="CardType.Subtitle">@model.address</BSCard>
+
+                    <BSCard CardType="CardType.Text">
+
+                        @model.describe
+                    </BSCard>
+
+                    <BSButton>Change Photo</BSButton>
+
+                </BSCard>
+
+            </BSCard>
+        </div>
+        <div class="col-8 pd-20">
+            <h3>
+                <span class="mr-2 oi oi-info"></span>
+                About
+            </h3>
+            @if (!IsEdit)
+            {
+                <div class="row">
+                    <div class="col-5 pb-3">
+                        Name:
+                    </div>
+                    <div class="col-7 pb-3">
+                        @model.name
+                    </div>
+                    <div class="col-5 pb-3">
+                        Address:
+                    </div>
+                    <div class="col-7 pb-3">
+                        @model.address
+                    </div>
+                    <div class="col-5 pb-3">
+                        Description:
+                    </div>
+                    <div class="col-7 pb-3">
+                        @model.describe
+                    </div>
+
+                    @if (!IsEdit)
+                    {
+                        <BSButton Color="Color.Info" Size="Size.Large" @onclick="Editing">Edit <span class="oi oi-pencil"></span></BSButton>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-5 pb-3">
+                        Name:
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Text" @bind-Value="@TName"></BSBasicInput>
+                    </div>
+                    <div class="col-5 pb-3">
+                        Address:
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Text" @bind-Value="@TAddress"></BSBasicInput>
+                    </div>
+                    <div class="col-5 pb-3">
+                        Description
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Text" @bind-Value="@TDescript"></BSBasicInput>
+                    </div>
+                    <BSButton Color="Color.Info" Size="Size.Large" Class="float-right" @onclick="SaveEdit">Save changes</BSButton>
+                    <BSButton Color="Color.Danger" Size="Size.Large" Class="float-right" @onclick="CancelEdit">Cancel</BSButton>
+
+                </div>
+            }
+            <hr />
+            <div class="row">
+
+                <div class="col-7 px-3"><b>Room name</b></div>
+                <div class="col-4 px-3"><b>Price per hour(vnđ)</b></div>
+                @if (RoomEdit)
+                {
+                    @for (int i = 0; i < tempS.Count; i++)
+                    {
+                        int temp = i;
+                        <div class="col-7 pb-3">
+                            <BSBasicInput InputType="InputType.Text" @bind-Value="@tempS[temp]"></BSBasicInput>
+                        </div>
+                        <div class="col-4 pb-3">
+                            <BSBasicInput InputType="InputType.Number" @bind-Value="@tempI[temp]"></BSBasicInput>
+                        </div>
+                        <div class="col-1">
+                            <BSButton Color="Color.Danger" Size="Size.ExtraSmall" OnClick="@(() => DeleteRoom(temp))"><span class="oi oi-circle-x"></span></BSButton>
+                        </div>
+                    }
+                    <div class="col-12">
+                        <BSButton Color="Color.Info" Size="Size.Large" OnClick="SaveRoom">Save</BSButton>
+                        <BSButton Color="Color.Danger" Size="Size.Large" OnClick="CancelRoom">Cancel</BSButton>
+                    </div>
+                }
+                else
+                {
+                    @for (int i = 0; i < model.RoomData_Name.Count; i++)
+                    {
+                        <div class="col-7 pb-3">
+                            <BSBasicInput InputType="InputType.Text" Value="@model.RoomData_Name[i]" IsDisabled="true"></BSBasicInput>
+                        </div>
+                        <div class="col-5 pb-3">
+                            <BSBasicInput InputType="InputType.Number" Value="@model.RoomData_Price[i]" IsDisabled="true"></BSBasicInput>
+                        </div>
+                    }
+                }
+            </div>
+            <hr />
+            @if (IsAdding)
+            {
+                <div class="row">
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Text" @bind-Value="@tempS1"></BSBasicInput>
+                    </div>
+                    <div class="col-5 pb-3">
+                        <BSBasicInput InputType="InputType.Number" @bind-Value="@tempI1"></BSBasicInput>
+                    </div>
+                    <div class="col-12">
+                        <BSButton Color="Color.Info" Size="Size.Large" OnClick="saveAdd">Save</BSButton>
+                        <BSButton Color="Color.Danger" Size="Size.Large" OnClick="CancelAdd">Cancel</BSButton>
+                    </div>
+                </div>
+                <hr />
+            }
+            <div class="col-12 px-5">
+                @if (IsAdding == false)
+                {
+                    <BSButton Class="float-right" Color="Color.Info" Size="Size.Large" OnClick="adding">Add<span class="oi oi-plus ml-1"></span></BSButton>
+                }
+                @if (RoomEdit == false)
+                {
+                    <BSButton Class="float-right" Color="Color.Primary" Size="Size.Large" OnClick="RoomEditting">Edit<span class="oi oi-pencil ml-1"></span></BSButton>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    bool IsEdit = false;
+
+    bool RoomEdit = false;
+
+    bool IsAdding = false;
+
+    List<string> tempS;
+
+    List<int> tempI;
+
+    string tempS1;
+
+    int tempI1;
+
+    Hotel model = new Hotel("Sample name","129/2A Broadla Coaster Washington DC", "https://r-cf.bstatic.com/images/hotel/max1024x768/231/231141387.jpg","Our hotel is 5 star rated on Roasted-Tomato, with about more than 1000m2 in space and 60 room of all kind");
+
+    string TName = string.Empty;
+
+    string TDescript = string.Empty;
+
+    string TAddress = string.Empty;
+
+    private void Editing()
+    {
+        IsEdit = true;
+        TName = model.name;
+        TDescript = model.describe;
+        TAddress = model.address;
+    }
+
+    private void CancelEdit()
+    {
+        IsEdit = false;
+        TName = string.Empty;
+        TDescript = string.Empty;
+        TAddress = string.Empty;
+    }
+
+    private void SaveEdit()
+    {
+        IsEdit = false;
+        model.name = TName;
+        model.address = TAddress;
+        model.describe = TDescript;
+    }
+
+    void adding()
+    {
+        IsAdding = true;
+        tempS1 = string.Empty;
+        tempI1 = 0;
+    }
+
+    void saveAdd()
+    {
+        IsAdding = false;
+        model.RoomData_Name.Add(tempS1);
+        model.RoomData_Price.Add(tempI1);
+    }
+
+    void CancelAdd()
+    {
+        IsAdding = false;
+    }
+
+    void RoomEditting()
+    {
+        tempS = new List<string>(model.RoomData_Name);
+        tempI = new List<int>(model.RoomData_Price);
+        RoomEdit = true;
+    }
+
+    void SaveRoom()
+    {
+        model.RoomData_Name = tempS;
+        model.RoomData_Price = tempI;
+        RoomEdit = false;
+    }
+
+    void CancelRoom()
+    {
+        RoomEdit = false;
+    }
+
+    protected override void OnInitialized()
+    {
+        tempS = model.RoomData_Name;
+        tempI = model.RoomData_Price;
+    }
+
+
+    void DeleteRoom(int num)
+    {
+        string newT = tempS[num];
+        tempS.Remove(newT);
+        int newI = tempI[num];
+        tempI.Remove(newI);
+    }
+}

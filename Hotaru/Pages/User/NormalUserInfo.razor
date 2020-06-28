@@ -1,0 +1,244 @@
+﻿@page "/user/information"
+@page "/user"
+@layout Hotaru.Shared.LayOut.UserLayout
+@using Hotaru.shared.Models
+<div class="main">
+    <div class="row">
+        <div class="col-4">
+            <BSCard CardType="CardType.Card">
+
+                <BSCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="https://upload.wikimedia.org/wikipedia/vi/6/65/Naruto-Opening01_222.jpg" alt="Card image cap" />
+
+                <BSCard CardType="CardType.Body">
+
+                    <BSCard CardType="CardType.Title">@model.Name</BSCard>
+
+                    <BSCard CardType="CardType.Subtitle">@model.Ages years old</BSCard>
+
+                    <BSButton>Change Photo</BSButton>
+
+                </BSCard>
+            </BSCard>
+        </div>
+        <div class="col-8 pd-20">
+            <h3>
+                <span class="mr-2 oi oi-person"></span>
+                About
+            </h3>
+            @if (!IsEdit)
+            {
+                <div class="row">
+                    <div class="col-5 pb-3">
+                        Name:
+                    </div>
+                    <div class="col-7 pb-3">
+                        @model.Name
+                    </div>
+                    <div class="col-5 pb-3">
+                        Email:
+                    </div>
+                    <div class="col-7 pb-3">
+                        @model.Email
+                    </div>
+                    <div class="col-5 pb-3">
+                        Phone Number:
+                    </div>
+                    <div class="col-7 pb-3">
+                        @model.PhoneNumber
+                    </div>
+                    <div class="col-5 pb-3">
+                        Address:
+                    </div>
+                    <div class="col-7 pb-3">
+                        @model.Address
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    @if (Isempty)
+                    {
+                        <div class="col-12 pb-3">
+                            <h6>Form can not be empty</h6>
+                            <br />
+                        </div>
+                    }
+                    <div class="col-5 pb-3">
+                        Name:
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Text" @bind-Value="@TName"></BSBasicInput>
+                    </div>
+                    <div class="col-5 pb-3">
+                        Email:
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Email" Value="@model.Email" IsDisabled="true"></BSBasicInput>
+                    </div>
+                    <div class="col-5 pb-3">
+                        Ages:
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Number" @bind-Value="@TAges"></BSBasicInput>
+                    </div>
+                    <div class="col-5 pb-3">
+                        Phone Number:
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Tel" @bind-Value="@TPhone"></BSBasicInput>
+                    </div>
+                    <div class="col-5 pb-3">
+                        Address:
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Text" @bind-Value="@TAddress"></BSBasicInput>
+                    </div>
+                    <BSButton Color="Color.Info" Size="Size.Large" Class="float-right" @onclick="SaveEdit">Save changes</BSButton>
+                    <BSButton Color="Color.Danger" Size="Size.Large" Class="float-right" @onclick="CancelEdit">Cancel</BSButton>
+
+                </div>
+            }
+            <hr />
+            @if (IsChangingPassword)
+            {
+                <div class="row">
+                    @if (WrongPass)
+                    {
+                        <div class="col-12 pb-3">
+                            <h6>Password is wrong, please re-enter your password</h6>
+                            <br />
+                        </div>
+                    }
+                    @if (Mismatch && WrongPass == false)
+                    {
+                        <div class="col-12 pb-3">
+                            <h6>Password mismatch or password is not enough length, please re-enter</h6>
+                            <br />
+                        </div>
+                    }
+                    <div class="col-5 pb-3">
+                        Old Password:
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Password" @bind-Value="TPassword"></BSBasicInput>
+                    </div>
+                    <div class="col-5 pb-3">
+                        New Password:
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Password" @bind-Value="TNPassword"></BSBasicInput>
+                    </div>
+                    <div class="col-5 pb-3">
+                        Confirm Password:
+                    </div>
+                    <div class="col-7 pb-3">
+                        <BSBasicInput InputType="InputType.Password" @bind-Value="TCPassword"></BSBasicInput>
+                    </div>
+                    <BSButton Color="Color.Info" Size="Size.Large" Class="float-right" @onclick="SavePassword">Save Password</BSButton>
+                    <BSButton Color="Color.Danger" Size="Size.Large" Class="float-right" @onclick="CancelChange">Cancel</BSButton>
+                </div>
+                <hr />
+            }
+            @if (!IsEdit)
+            {
+                <BSButton Color="Color.Info" Size="Size.Large" Class="float-right" @onclick="Editing">Edit <span class="oi oi-pencil"></span></BSButton>
+            }
+            @if (!IsChangingPassword)
+            {
+                <BSButton Color="Color.Danger" Size="Size.Large" Class="float-right" @onclick="ChangingPassword">Change PassWord <span class="oi oi-cog"></span></BSButton>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+
+    bool IsEdit = false;
+
+    bool IsChangingPassword = false;
+
+    bool WrongPass = false;
+
+    bool Mismatch = false;
+
+    bool Isempty = false;
+
+    UserData model = new UserData("Cella Marcelo", "mrcl@gmail.com", "1234", "0982481842", "1st Washington", 32);
+
+    string TName = string.Empty;
+
+    string TPhone = string.Empty;
+
+    string TPassword = string.Empty;
+
+    string TAddress = string.Empty;
+
+    string TNPassword = string.Empty;//new password
+
+    string TCPassword = string.Empty;//confrim password
+
+    int TAges;
+
+    private void Editing()
+    {
+        IsEdit = true;
+        TName = model.Name;
+        TPhone = model.PhoneNumber;
+        TAddress = model.Address;
+        TAges = model.Ages;
+    }
+
+    private void CancelEdit()
+    {
+        IsEdit = false;
+        TName = string.Empty;
+        TPhone = string.Empty;
+        TAddress = string.Empty;
+        TAges = 0;
+    }
+
+    private void SaveEdit()
+    {
+        if ((string.IsNullOrWhiteSpace(TName)) || (string.IsNullOrWhiteSpace(TPhone)) || (string.IsNullOrWhiteSpace(TAddress)) || (TAges < 0)) Isempty = true;
+        if (Isempty == false)
+        {
+            IsEdit = false;
+            model.Name = TName;
+            model.PhoneNumber = TPhone;
+            model.Address = TAddress;
+            model.Ages = TAges;
+        }
+    }
+
+    private void ChangingPassword()
+    {
+        IsChangingPassword = true;
+        TPassword = string.Empty;
+        TNPassword = string.Empty;
+        TCPassword = string.Empty;
+    }
+
+    private void SavePassword()
+    {
+        if (TPassword != model.Password) WrongPass = true;
+        else WrongPass = false;
+
+        if ((TNPassword != TCPassword) || (TNPassword.Length <= 4)) Mismatch = true;
+        else Mismatch = false;
+
+        if (WrongPass == false && Mismatch == false)
+        {
+            IsChangingPassword = false;
+            model.Password = TNPassword;
+        }
+    }
+
+    private void CancelChange()
+    {
+        WrongPass = false;
+        Mismatch = false;
+        IsChangingPassword = false;
+    }
+
+}

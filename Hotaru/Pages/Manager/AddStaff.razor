@@ -1,0 +1,99 @@
+﻿@page "/manager/addstaff"
+@inject NavigationManager nvg
+@layout Hotaru.Shared.LayOut.AuthLayout
+@using Hotaru.shared.Models
+
+<div class="col-12 p-5">
+
+    @if (!string.IsNullOrWhiteSpace(alert))
+    {
+        <BSAlert Color="Color.Danger">
+
+            @alert<span class="oi oi-circle-x ml-2" @onclick="CloseAlert"></span>
+
+        </BSAlert>
+    }
+
+    <BSForm Model="@model" ValidateOnInit="false">
+
+        <DataAnnotationsValidator />
+
+        <BSFormGroup>
+
+            <BSLabel For="NameInput">Name</BSLabel>
+
+            <BSInput Id="NameInput" InputType="InputType.Text" PlaceHolder="Enter staff name" @bind-Value="model.UserName">User Name</BSInput>
+
+            <BSFormFeedback For="@(() => model.UserName)"></BSFormFeedback>
+
+        </BSFormGroup>
+
+        <BSFormGroup>
+
+            <BSLabel For="EmailInput">Email</BSLabel>
+
+            <BSInput Id="EmailInput" InputType="InputType.Email" PlaceHolder="Enter email" @bind-Value="model.Email">Email Address</BSInput>
+
+            <BSFormFeedback For="@(() => model.Email)"></BSFormFeedback>
+
+        </BSFormGroup>
+
+        <BSFormGroup>
+
+            <BSLabel For="PasswordInput">Password</BSLabel>
+
+            <BSInput InputType="InputType.Password" PlaceHolder="Password" Id="PasswordInput" @bind-Value="model.Password"></BSInput>
+
+            <BSFormFeedback For="@(() => model.Password)"></BSFormFeedback>
+
+        </BSFormGroup>
+
+        <BSFormGroup>
+
+            <BSLabel For="ConfirmPasswordInput">Confirm Password</BSLabel>
+
+            <BSInput InputType="InputType.Password" PlaceHolder="Password" Id="ConfirmPasswordInput" @bind-Value="model.ConfirmPassword"></BSInput>
+
+            <BSFormFeedback For="@(() => model.ConfirmPassword)"></BSFormFeedback>
+
+        </BSFormGroup>
+
+        <BSFormGroup>
+
+            <BSLabel For="PhoneInput">Phone Number</BSLabel>
+
+            <BSInput InputType="InputType.Text" PlaceHolder="Number" Id="PhoneInput" @bind-Value="model.PhoneNumber"></BSInput>
+
+            <BSFormFeedback For="@(() => model.PhoneNumber)"></BSFormFeedback>
+
+        </BSFormGroup>
+
+        <BSButton Color="Color.Primary" IsBlock="true" @onclick="RegisterToHotaru">Register</BSButton>
+
+        <hr style="background-color: #99ffcc" />
+
+    </BSForm>
+
+</div>
+
+@code {
+    RegisterModel model = new RegisterModel();
+
+    string alert = string.Empty;
+
+    public void RegisterToHotaru()
+    {
+        alert = "Account has been create successfully";
+    }
+
+    public void CloseAlert()
+    {
+        alert = string.Empty;
+    }
+
+    public void nvgToLogin()
+    {
+        nvg.NavigateTo("/login");
+    }
+
+}

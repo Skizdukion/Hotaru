@@ -1,0 +1,269 @@
+﻿@page "/user/hotelbooking"
+@page "/user/hotelbooking/{pageId:int}"
+@layout Hotaru.Shared.LayOut.UserLayout
+@inject NavigationManager nvg
+@using Hotaru.shared.Models
+
+    <div class="main">
+        <div class="col-12">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Hotel name" @bind-value="srchStr">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" @onclick="search">Search</button>
+                </div>
+            </div>
+            @if ((PageId != model.MaxPages - 1) || (model.MaxObject % model.ObjectEachPage == 0))
+            {
+                for (int i = 0; i < model.ObjectEachPage / 2; i++)
+                {
+                    int object1 = PageId * model.ObjectEachPage + 1 + i * 2;
+                    int object2 = object1 + 1;
+                    <div class="row">
+                        @if (object1 < htl.hotellist.Count)
+                        {
+                        <div class="media pb-5 col-6">
+                            <img class="mr-3 img-thumbnail" src="@htl.hotellist[object1].imglink" alt="Generic placeholder image" style="width:200px;height:200px;">
+                            <div class="media-body">
+                                <h3 class="mt-0"><a href="@URLHotelPage(object1)">@htl.hotellist[object1].name</a></h3>
+                                Address: @htl.hotellist[object1].address
+                            </div>
+                        </div>
+                        }
+                        @if (object2 < htl.hotellist.Count)
+                        {
+                        <div class="media pb-5 col-6">
+                            <img class="mr-3 img-thumbnail" src="@htl.hotellist[object2].imglink" alt="Generic placeholder image" style="width:200px;height:200px;">
+                            <div class="media-body">
+                                <h3 class="mt-0"><a href="@URLHotelPage(object2)">@htl.hotellist[object2].name</a></h3>
+                                Address: @htl.hotellist[object2].address
+                            </div>
+                        </div>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                for (int i = 0; i < (model.MaxObject % model.ObjectEachPage + 1) / 2; i++)
+                {
+                    int object1 = PageId * model.ObjectEachPage + 1 + i * 2;
+                    int object2 = object1 + 1;
+                    <div class="row">
+                        @if (object1 < htl.hotellist.Count)
+                        {
+                        <div class="media pb-5 col-6">
+                            <img class="mr-3 img-thumbnail" src="@htl.hotellist[object1].imglink" alt="Generic placeholder image" style="width:200px;height:200px;">
+                            <div class="media-body">
+                                <h3 class="mt-0"><a href="@URLHotelPage(object1)">@htl.hotellist[object1].name</a></h3>
+                                Address: @htl.hotellist[object1].address
+                            </div>
+                        </div>
+                        }
+                        @if (object2 < htl.hotellist.Count)
+                        {
+                            <div class="media pb-5 col-6">
+                                <img class="mr-3 img-thumbnail" src="@htl.hotellist[object2].imglink" alt="Generic placeholder image" style="width:200px;height:200px;">
+                                <div class="media-body">
+                                    <h3 class="mt-0"><a href="@URLHotelPage(object2)">@htl.hotellist[object2].name</a></h3>
+                                    Address: @htl.hotellist[object2].address
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+        <div class="col-12 ">
+        <BSPagination Alignment="Alignment.Center">
+            <BSPaginationItem IsDisabled="IsFirstPage()">
+
+                <BSPaginationLink Href="@URLPage(PageId-1)" PaginationLinkType="PaginationLinkType.PreviousText"></BSPaginationLink>
+
+            </BSPaginationItem>
+            @if (model.MaxPages < 10)
+                for (int i = 0; i < model.MaxPages; i++)
+                {
+                    if (PageId == i)
+                    {
+                        int numPage = i;
+                        <BSPaginationItem IsActive="true">
+
+                            <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                        </BSPaginationItem>
+                    }
+                    else
+                    {
+                        int numPage = i;
+                        <BSPaginationItem IsActive="false">
+
+                            <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                        </BSPaginationItem>
+                    }
+                }
+            else
+            {
+                if (PageId < 10)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        if (PageId == i)
+                        {
+                            int numPage = i;
+                            <BSPaginationItem IsActive="true">
+
+                                <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                            </BSPaginationItem>
+                        }
+                        else
+                        {
+                            int numPage = i;
+                            <BSPaginationItem IsActive="false">
+
+                                <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                            </BSPaginationItem>
+                        }
+                    }
+                    <BSPaginationItem IsDisabled="true">
+
+                        <BSPaginationLink Href="">...</BSPaginationLink>
+
+                    </BSPaginationItem>
+                }
+                else
+                {
+                    if (PageId != model.MaxPages - 1)
+                    {
+                        <BSPaginationItem IsDisabled="true">
+
+                            <BSPaginationLink Href="">...</BSPaginationLink>
+
+                        </BSPaginationItem>
+                        for (int i = PageId - 9; i < PageId + 1; i++)
+                        {
+                            if (PageId == i)
+                            {
+                                int numPage = i;
+                                <BSPaginationItem IsActive="true">
+
+                                    <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                                </BSPaginationItem>
+                            }
+                            else
+                            {
+                                int numPage = i;
+                                <BSPaginationItem IsActive="false">
+
+                                    <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                                </BSPaginationItem>
+                            }
+                        }
+                        <BSPaginationItem IsDisabled="true">
+
+                            <BSPaginationLink Href="">...</BSPaginationLink>
+
+                        </BSPaginationItem>
+                    }
+                    else
+                    {
+                        <BSPaginationItem IsDisabled="true">
+
+                            <BSPaginationLink Href="">...</BSPaginationLink>
+
+                        </BSPaginationItem>
+                        for (int i = PageId - 9; i < PageId + 1; i++)
+                        {
+                            if (PageId == i)
+                            {
+                                int numPage = i;
+                                <BSPaginationItem IsActive="true">
+
+                                    <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                                </BSPaginationItem>
+                            }
+                            else
+                            {
+                                int numPage = i;
+                                <BSPaginationItem IsActive="false">
+
+                                    <BSPaginationLink Href="@URLPage(numPage)">@numPage</BSPaginationLink>
+
+                                </BSPaginationItem>
+                            }
+                        }
+                    }
+                }
+            }
+
+            <BSPaginationItem IsDisabled="IsFinalPage()">
+
+                <BSPaginationLink Href="@URLPage(PageId+1)" PaginationLinkType="PaginationLinkType.NextText"></BSPaginationLink>
+
+            </BSPaginationItem>
+
+        </BSPagination>
+        </div>
+    </div>
+
+@code {
+    [Parameter]
+    public int PageId { get; set; }
+
+    string srchStr = string.Empty;
+
+    string URLHotelPage(int numHotel)
+    {
+        //string temp = "/booking/hotel/" + numHotel.ToString();
+        string temp = "/booking/hotel";
+        return temp;
+    }
+
+    void search()
+    {
+        nvg.NavigateTo("/user/hotelbooking");
+        htl = new HotelList();
+        Hotel emptyHotel = new Hotel();
+        htl.hotellist.Add(emptyHotel);
+        for (int i = 1; i < Org.hotellist.Count;i++)
+        {
+            if (Org.hotellist[i].name.Contains(srchStr, StringComparison.OrdinalIgnoreCase))
+                htl.hotellist.Add(Org.hotellist[i]);
+        }
+        model = new Pagination(htl.hotellist.Count, 8);
+    }
+
+    string URLPage(int numPage)
+    {
+        string temp = "/user/hotelbooking/" + numPage.ToString();
+        return temp;
+    }
+
+    bool IsFirstPage()
+    {
+        if (PageId == 0) return true;
+        else return false;
+    }
+
+    bool IsFinalPage()
+    {
+        if (PageId == model.MaxPages - 1)  return true;
+        else return false;
+    }
+
+    Pagination model = new Pagination(45, 8);
+
+    HotelList htl;
+
+    HotelList Org = new HotelList(45);
+
+    protected override void OnInitialized()
+    {
+        htl = Org;
+    }
+}

@@ -271,7 +271,7 @@
 
     void search()
     {
-        nvg.NavigateTo("/manager/customermanagement");
+        nvg.NavigateTo("/staff/customermanagement");
         usL = new UserList();
         UserData emptyUser = new UserData();
         usL.userList.Add(emptyUser);
@@ -289,11 +289,11 @@
         Org.userList.Remove(temp);
         usL.userList.Remove(temp);
         model = new Pagination(usL.userList.Count, 8);
-        nvg.NavigateTo("/manager/customermanagement");
+        nvg.NavigateTo("/staff/customermanagement");
     }
 
     void navigatetoCustomerAccounting()
     {
-        nvg.NavigateTo("manager/customeraccounting");
+        nvg.NavigateTo("staff/customeraccounting");
     }
 }

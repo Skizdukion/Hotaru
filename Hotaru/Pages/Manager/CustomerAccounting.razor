@@ -1,5 +1,4 @@
 ﻿@page "/manager/customeraccounting"
-@page "/manager/customeraccounting/{customerId:int}"
 @layout Hotaru.Shared.LayOut.ManagerLayout
 @using Hotaru.shared.Models
 <div class="main">
@@ -16,9 +15,7 @@
                     <BSCard CardType="CardType.Subtitle">@model.Ages years old</BSCard>
 
                     <BSCard CardType="CardType.Text">
-
-                        Programer professional
-
+                        @model.state
                     </BSCard>
                 </BSCard>
 
@@ -31,50 +28,74 @@
             </h3>
             <div class="row">
                 <div class="col-12 pb-3">
-                    Date and time pick in advance:
+                    Date pick in advance:
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Date" @bind-Value="CT.DatePickInAdvance" IsDisabled="true"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Date return:
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Date" @bind-Value="CT.DateReturn"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Room name:
                 </div>
                 <div class="col-8 pb-3">
-                    <BSBasicInput InputType="InputType.Date" Value="@datePIA" IsDisabled="true"></BSBasicInput>
+                    <BSBasicInput InputType="InputType.Select" @bind-Value="Room_temp_name">
+
+                        @for (int i = 0; i < ht.RoomData_Name.Count; i++)
+                        {
+                            int temp = i;
+                            <option>@ht.RoomData_Name[temp]</option>
+                        }
+
+                    </BSBasicInput>
                 </div>
                 <div class="col-4 pb-3">
-                    <BSBasicInput InputType="InputType.Text" Value="TPIA" IsDisabled="true"></BSBasicInput>
+                    @for (int i = 0; i < ht.RoomData_Name.Count; i++)
+                    {
+                        int temp = i;
+                        if (ht.RoomData_Name[temp] == Room_temp_name)
+                        {
+                            Room_temp_locate = temp;
+                            break;
+                        }
+                    }
+                    @{
+                        if (!string.IsNullOrEmpty(Room_temp_name))
+                            Price = ht.RoomData_Price[Room_temp_locate].ToString() + " vnđ";
+                    }
+                    <BSBasicInput InputType="InputType.Text" IsDisabled="true" Value="Price"></BSBasicInput>
                 </div>
                 <div class="col-12 pb-3">
-                    Date and time return:
-                </div>
-                <div class="col-8 pb-3">
-                    <BSBasicInput InputType="InputType.Date" Value="DateTime.Now"></BSBasicInput>
-                </div>
-                <div class="col-4 pb-3 time">
-                    <BSBasicInput InputType="InputType.Text" Value="string.Empty"></BSBasicInput>
+                    Additional fee description:
                 </div>
                 <div class="col-12 pb-3">
-                    Room:
+                    <BSBasicInput InputType="InputType.TextArea" @bind-Value="CT.AddtionalFeeDescription"></BSBasicInput>
                 </div>
                 <div class="col-12 pb-3">
-                    <BSBasicInput InputType="InputType.Text" Value="@RoomName"></BSBasicInput>
+                    Additional fee(money):
                 </div>
                 <div class="col-12 pb-3">
-                    Additional fee:
+                    <BSBasicInput InputType="InputType.Number" @bind-Value="CT.AddtionalFee"></BSBasicInput>
                 </div>
-                <div class="col-12 pb-3">
-                    <BSBasicInput InputType="InputType.TextArea" Value="string.Empty"></BSBasicInput>
-                </div>
-                <BSButton Color="Color.Info" Size="Size.Large" Class="float-right">Accounting</BSButton>
+                <BSButton Color="Color.Info" Size="Size.Large" Class="float-right">Alert to customer</BSButton>
             </div>
         </div>
     </div>
 </div>
 @code {
-    [Parameter]
-    public int CustomerID { get; set; }
-    string TPIA;
-    public DateTime datePIA;
-    public string RoomName = "Room for 3 people";
-    UserData model = new UserData("Cella Marcelo", "mrcl@gmail.com", "1", "0982481842", "1st Washington", 32);
+    int Room_temp_locate = new int();
+    string Room_temp_name = string.Empty;
+    string Price = string.Empty;
+    Hotel ht = new Hotel("Valley hotel", "", "", "");
+    CustomerTransaction CT = new CustomerTransaction();
+    CustomerData model = new CustomerData("Cella Marcelo", "mrcl@gmail.com", "1", "0982481842", "1st Washington", 32, "In Valley Hotel");
     protected override void OnInitialized()
     {
-        datePIA = new DateTime(2020, 6, 20);
-        TPIA = "7:00AM";
+        CT.DatePickInAdvance = DateTime.Now;
+        CT.DateReturn = DateTime.Now;
     }
 }

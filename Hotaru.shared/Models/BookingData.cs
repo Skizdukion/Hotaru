@@ -9,6 +9,7 @@ namespace Hotaru.shared.Models
         public string HotelName { get; set; }
         public string UserName { get; set; }
         public DateTime DatePickInAdvance { get; set; }
+        public DateTime ReturnDateExpect { get; set; }
         public string Room_Name { get; set; }
         public int Room_Price { get; set; }
 

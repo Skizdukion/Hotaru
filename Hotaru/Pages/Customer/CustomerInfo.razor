@@ -14,9 +14,18 @@
                     <BSCard CardType="CardType.Title">@model.Name</BSCard>
 
                     <BSCard CardType="CardType.Subtitle">@model.Ages years old</BSCard>
-
-                    <BSButton>Change Photo</BSButton>
-
+                    <BSCard CardType="CardType.Text">
+                        @if (model.state == "Transaction Confirm")
+                        {
+                            <a href="/customer/transactionconfirm">Transaction need to check</a>
+                        }
+                        else
+                        {
+                            @model.state
+                        }
+                        <br/>
+                        <BSButton>Change Photo</BSButton>
+                    </BSCard>
                 </BSCard>
             </BSCard>
         </div>
@@ -164,7 +173,7 @@
 
     bool Isempty = false;
 
-    UserData model = new UserData("Cella Marcelo", "mrcl@gmail.com", "1234", "0982481842", "1st Washington", 32);
+    CustomerData model = new CustomerData("Cella Marcelo", "mrcl@gmail.com", "1234", "0982481842", "1st Washington", 32, "Transaction Confirm");
 
     string TName = string.Empty;
 

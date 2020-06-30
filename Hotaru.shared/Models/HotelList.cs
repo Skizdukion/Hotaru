@@ -15,9 +15,17 @@ namespace Hotaru.shared.Models
             {
                 Hotel temp = new Hotel();
                 temp.name = "Hotel number " + i.ToString();
-                temp.address = "empty";
-                if (i%2==0) temp.imglink = "https://r-cf.bstatic.com/images/hotel/max1024x768/231/231141387.jpg";
-                    else temp.imglink = "https://r-cf.bstatic.com/images/hotel/max1024x768/245/245801221.jpg";
+                temp.address = "Sample Address 1";
+                if (i % 2 == 0)
+                {
+                    temp.imglink = "https://r-cf.bstatic.com/images/hotel/max1024x768/231/231141387.jpg";
+                    temp.address = "Sample Address 1";
+                }
+                else
+                {
+                    temp.imglink = "https://r-cf.bstatic.com/images/hotel/max1024x768/245/245801221.jpg";
+                    temp.address = "Sample Address 2";
+                }
                 hotellist.Add(temp);
             }
         }

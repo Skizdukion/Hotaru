@@ -1,4 +1,4 @@
-﻿@page "/staff/informaion"
+﻿@page "/staff/information"
 @page "/staff"
 @layout Hotaru.Shared.LayOut.StaffLayout
 @using Hotaru.shared.Models
@@ -15,7 +15,7 @@
 
                     <BSCard CardType="CardType.Subtitle">@model.Ages years old</BSCard>
 
-                    <a href="#">Staff at valley hotel</a>
+                    Staff at @model.HotelWork
                     <br />
                     <BSButton>Change Photo</BSButton>
 
@@ -166,7 +166,7 @@
 
     bool Isempty = false;
 
-    UserData model = new UserData("Cella Marcelo", "mrcl@gmail.com", "1234", "0982481842", "1st Washington", 32);
+    StaffData model = new StaffData("Cella Marcelo", "mrcl@gmail.com", "1234", "0982481842", "1st Washington", 32, "Valley Hotel");
 
     string TName = string.Empty;
 

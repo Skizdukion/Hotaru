@@ -1,5 +1,5 @@
-﻿@page "/manager"
-@page "/manager/information"
+﻿@page "/manager/information"
+@page "/manager"
 @layout Hotaru.Shared.LayOut.ManagerLayout
 @using Hotaru.shared.Models
 <div class="main">
@@ -15,8 +15,8 @@
 
                     <BSCard CardType="CardType.Subtitle">@model.Ages years old</BSCard>
 
-                    <a href="#">Manager at valley hotel</a>
-                    <br/>
+                    Manager at @model.HotelWork
+                    <br />
                     <BSButton>Change Photo</BSButton>
 
                 </BSCard>
@@ -166,7 +166,7 @@
 
     bool Isempty = false;
 
-    UserData model = new UserData("Cella Marcelo", "mrcl@gmail.com", "1234", "0982481842", "1st Washington", 32);
+    StaffData model = new StaffData("Cella Marcelo", "mrcl@gmail.com", "1234", "0982481842", "1st Washington", 32, "Valley Hotel");
 
     string TName = string.Empty;
 

@@ -1,0 +1,88 @@
+﻿@page "/customer/transactionconfirm"
+@page "/customer/transactionconfirm/{customerId:int}"
+@layout Hotaru.Shared.LayOut.UserLayout
+@using Hotaru.shared.Models
+<div class="main">
+    <div class="row">
+        <div class="col-4">
+            <BSCard CardType="CardType.Card">
+
+                <BSCard CardType="CardType.Image" VerticalAlignment="VerticalAlignment.Top" src="@ht.imglink" alt="Card image cap" />
+
+                <BSCard CardType="CardType.Body">
+
+                    <BSCard CardType="CardType.Title">@ht.name</BSCard>
+
+                    <BSCard CardType="CardType.Subtitle">@ht.address</BSCard>
+
+                    <BSCard CardType="CardType.Text">
+
+                        @ht.describe
+                    </BSCard>
+
+                </BSCard>
+
+            </BSCard>
+        </div>
+        <div class="col-8 pd-20">
+            <h3>
+                <span class="mr-2 oi oi-calculator"></span>
+                Accounting
+            </h3>
+            <div class="row">
+                <div class="col-12 pb-3">
+                    Date pick in advance:
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Date" @bind-Value="CT.DatePickInAdvance" IsDisabled="true"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Date return:
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Date" @bind-Value="CT.DateReturn" IsDisabled="true"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Room name:
+                </div>
+                <div class="col-8 pb-3">
+                    <BSBasicInput InputType="InputType.Text" IsDisabled="true" @bind-Value="CT.Room_Name"></BSBasicInput>
+                </div>
+                <div class="col-4 pb-3">
+                    <BSBasicInput InputType="InputType.Text" IsDisabled="true" Value="CT.Room_Price"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Additional fee description:
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.TextArea" IsDisabled="true" @bind-Value="CT.AddtionalFeeDescription"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Additional fee(money):
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Number" IsDisabled="true" @bind-Value="CT.AddtionalFee"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Bill price:
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Number" IsDisabled="true" @bind-Value="CT.BillPrice"></BSBasicInput>
+                </div>
+                <BSButton Color="Color.Info" Size="Size.Large" Class="float-right">Confirm</BSButton>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public int CustomerID { get; set; }
+    Hotel ht = new Hotel("Valley", "129/2A Broadla Coaster Washington DC", "https://r-cf.bstatic.com/images/hotel/max1024x768/231/231141387.jpg", "Our hotel is 5 star rated on Roasted-Tomato, with about more than 1000m2 in space and 60 room of all kind");
+    CustomerTransaction CT;
+    protected override void OnInitialized()
+    {
+        DateTime nowz = DateTime.Now;
+        DateTime nowzt = nowz.AddDays(13);
+        CT = new CustomerTransaction("Cella Marcelo", "Valley hotel", "Michael", nowz, nowzt, nowzt, "Room for 1 people", 100000, "No adding fee", 0);
+    }
+}

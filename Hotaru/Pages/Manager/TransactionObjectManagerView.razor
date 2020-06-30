@@ -13,76 +13,68 @@
                     <BSCard CardType="CardType.Title">@model.Name</BSCard>
 
                     <BSCard CardType="CardType.Subtitle">@model.Ages years old</BSCard>
-
-
+                    <BSCard CardType="CardType.Text">
+                    </BSCard>
                 </BSCard>
             </BSCard>
         </div>
         <div class="col-8 pd-20">
             <h3>
-                <span class="mr-2 oi oi-info"></span>
-                About
+                <span class="mr-2 oi oi-calculator"></span>
+                Accounting
             </h3>
             <div class="row">
-                <div class="col-5 pb-3">
-                    Transaction staff:
+                <div class="col-12 pb-3">
+                    Date pick in advance:
                 </div>
-                <div class="col-7 pb-3">
-                    @CT.AccountingName
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Date" @bind-Value="CT.DatePickInAdvance" IsDisabled="true"></BSBasicInput>
                 </div>
-                <div class="col-5 pb-3">
-                    Transaction date:
-                </div>
-                <div class="col-7 pb-3">
-                    <BSBasicInput InputType="InputType.Date" Value="@CT.TransactionDate" IsDisabled="true"></BSBasicInput>
-                </div>
-                <div class="col-5 pb-3">
-                    Date check in:
-                </div>
-                <div class="col-7 pb-3">
-                    <BSBasicInput InputType="InputType.Date" Value="@CT.DatePickInAdvance" IsDisabled="true"></BSBasicInput>
-                </div>
-                <div class="col-5 pb-3">
+                <div class="col-12 pb-3">
                     Date return:
                 </div>
-                <div class="col-7 pb-3">
-                    <BSBasicInput InputType="InputType.Date" Value="@CT.DateReturn" IsDisabled="true"></BSBasicInput>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Date" @bind-Value="CT.DateReturn" IsDisabled="true"></BSBasicInput>
                 </div>
-                <div class="col-5 pb-3">
-                    Total price:
+                <div class="col-12 pb-3">
+                    Room name:
                 </div>
-                <div class="col-7 pb-3">
-                    @CT.BillPrice
+                <div class="col-8 pb-3">
+                    <BSBasicInput InputType="InputType.Text" IsDisabled="true" @bind-Value="CT.Room_Name"></BSBasicInput>
                 </div>
-                <div class="col-5 pb-3">
-                    Addtional fee description:
+                <div class="col-4 pb-3">
+                    <BSBasicInput InputType="InputType.Text" IsDisabled="true" Value="CT.Room_Price"></BSBasicInput>
                 </div>
-                <div class="col-7 pb-3">
-                    @CT.AddtionalFeeDescription
+                <div class="col-12 pb-3">
+                    Additional fee description:
                 </div>
-                <div class="col-5 pb-3">
-                    Addtional fee:
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.TextArea" IsDisabled="true" @bind-Value="CT.AddtionalFeeDescription"></BSBasicInput>
                 </div>
-                <div class="col-7 pb-3">
-                    @CT.AddtionalFee
+                <div class="col-12 pb-3">
+                    Additional fee(money):
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Number" IsDisabled="true" @bind-Value="CT.AddtionalFee"></BSBasicInput>
+                </div>
+                <div class="col-12 pb-3">
+                    Bill price:
+                </div>
+                <div class="col-12 pb-3">
+                    <BSBasicInput InputType="InputType.Number" IsDisabled="true" @bind-Value="CT.BillPrice"></BSBasicInput>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @code{
-    UserData model;
-
+    CustomerData model = new CustomerData("Cella Marcelo", "mrcl@gmail.com", "1234", "0982481842", "1st Washington", 32, "Transaction Confirm");
+    Hotel ht = new Hotel("Valley", "129/2A Broadla Coaster Washington DC", "https://r-cf.bstatic.com/images/hotel/max1024x768/231/231141387.jpg", "Our hotel is 5 star rated on Roasted-Tomato, with about more than 1000m2 in space and 60 room of all kind");
     CustomerTransaction CT;
-
     protected override void OnInitialized()
     {
         DateTime nowz = DateTime.Now;
-
-        DateTime nowzt = nowz.AddDays(20);
-
-        UserData model = new UserData("Cella Marcelo", "mrcl@gmail.com", "1234", "0982481842", "1st Washington", 32);
-
+        DateTime nowzt = nowz.AddDays(13);
         CT = new CustomerTransaction("Cella Marcelo", "Valley hotel", "Michael", nowz, nowzt, nowzt, "Room for 1 people", 100000, "No adding fee", 0);
     }
 

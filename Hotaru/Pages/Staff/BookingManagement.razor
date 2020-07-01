@@ -1,16 +1,14 @@
-﻿@page "/staff/customermanagement"
-@page "/staff/customermanagement/{pageId:int}"
+﻿@page "/staff/bookingmanagement"
+@page "/staff/bookingmanagement/{pageId:int}"
 @layout Hotaru.Shared.LayOut.StaffLayout
 @inject NavigationManager nvg
 @using Hotaru.shared.Models
 <div class="main">
     <div class="col-12">
-        <div class="row">
-            <div class="input-group mb-3 col-12">
-                <input type="text" class="form-control" placeholder="Customer name" @bind-value="srchStr">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" @onclick="search">Search</button>
-                </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Customer name" @bind-value="srchStr">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" @onclick="search">Search</button>
             </div>
         </div>
         @if ((PageId != model.MaxPages - 1) || (model.MaxObject % model.ObjectEachPage == 0))
@@ -20,35 +18,35 @@
                 int object1 = PageId * model.ObjectEachPage + 1 + i * 2;
                 int object2 = object1 + 1;
                 <div class="row">
-                    @if (object1 < usL.userList.Count)
+                    @if (object1 < bkl.bookingList.Count)
                     {
                         <div class="media pb-5 col-6">
                             <img class="mr-3 img-thumbnail" src="https://image.shutterstock.com/image-vector/silhouette-people-unknown-male-person-260nw-1372192277.jpg" alt="Generic placeholder image" style="width:200px;height:250px;">
                             <div class="media-body">
-                                <label>Customer name:</label>
-                                <p class="mt-0"> @usL.userList[object1].Name</p>
-                                <label>Phone number:</label>
-                                <p>@usL.userList[object1].PhoneNumber</p>
-                                <label>Email:</label>
-                                <p>@usL.userList[object1].Email</p>
-                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="navigatetoCustomerAccounting">Accounting</BSButton>
-                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => deleteCustomer(object1))">End</BSButton>
+                                <label>User name:</label>
+                                <h3 class="mt-0"> @bkl.bookingList[object1].UserName</h3>
+                                <label>Room name:</label>
+                                <p>@bkl.bookingList[object1].Room_Name</p>
+                                <label>Date pick in advance:</label>
+                                <BSBasicInput InputType="InputType.Date" Value="bkl.bookingList[object1].DatePickInAdvance" IsDisabled="true"></BSBasicInput>
+                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="@(() => acceptCustomer(object1))">Accept</BSButton>
+                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => declineCustomer(object1))">Decline</BSButton>
                             </div>
                         </div>
                     }
-                    @if (object2 < usL.userList.Count)
+                    @if (object2 < bkl.bookingList.Count)
                     {
                         <div class="media pb-5 col-6">
                             <img class="mr-3 img-thumbnail" src="https://image.shutterstock.com/image-vector/silhouette-people-unknown-male-person-260nw-1372192277.jpg" alt="Generic placeholder image" style="width:200px;height:250px;">
                             <div class="media-body">
-                                <label>Customer name:</label>
-                                <p class="mt-0"> @usL.userList[object2].Name</p>
-                                <label>Phone number:</label>
-                                <p>@usL.userList[object2].PhoneNumber</p>
-                                <label>Email:</label>
-                                <p>@usL.userList[object2].Email</p>
-                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="navigatetoCustomerAccounting">Accounting</BSButton>
-                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => deleteCustomer(object2))">End</BSButton>
+                                <label>User name:</label>
+                                <h3 class="mt-0"> @bkl.bookingList[object2].UserName</h3>
+                                <label>Room name:</label>
+                                <p>@bkl.bookingList[object2].Room_Name</p>
+                                <label>Date pick in advance:</label>
+                                <BSBasicInput InputType="InputType.Date" Value="bkl.bookingList[object2].DatePickInAdvance" IsDisabled="true"></BSBasicInput>
+                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="@(() => acceptCustomer(object2))">Accept</BSButton>
+                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => declineCustomer(object2))">Decline</BSButton>
                             </div>
                         </div>
                     }
@@ -62,35 +60,35 @@
                 int object1 = PageId * model.ObjectEachPage + 1 + i * 2;
                 int object2 = object1 + 1;
                 <div class="row">
-                    @if (object1 < usL.userList.Count)
+                    @if (object1 < bkl.bookingList.Count)
                     {
                         <div class="media pb-5 col-6">
                             <img class="mr-3 img-thumbnail" src="https://image.shutterstock.com/image-vector/silhouette-people-unknown-male-person-260nw-1372192277.jpg" alt="Generic placeholder image" style="width:200px;height:250px;">
                             <div class="media-body">
-                                <label>Customer name:</label>
-                                <p class="mt-0"> @usL.userList[object1].Name</p>
-                                <label>Phone number:</label>
-                                <p>@usL.userList[object1].PhoneNumber</p>
-                                <label>Email:</label>
-                                <p>@usL.userList[object1].Email</p>
-                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="navigatetoCustomerAccounting">Accounting</BSButton>
-                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => deleteCustomer(object1))">End</BSButton>
+                                <label>User name:</label>
+                                <h3 class="mt-0"> @bkl.bookingList[object1].UserName</h3>
+                                <label>Room name:</label>
+                                <p>@bkl.bookingList[object1].Room_Name</p>
+                                <label>Date pick in advance:</label>
+                                <BSBasicInput InputType="InputType.Date" Value="bkl.bookingList[object1].DatePickInAdvance" IsDisabled="true"></BSBasicInput>
+                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="@(() => acceptCustomer(object1))">Accept</BSButton>
+                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => declineCustomer(object1))">Decline</BSButton>
                             </div>
                         </div>
                     }
-                    @if (object2 < usL.userList.Count)
+                    @if (object2 < bkl.bookingList.Count)
                     {
                         <div class="media pb-5 col-6">
                             <img class="mr-3 img-thumbnail" src="https://image.shutterstock.com/image-vector/silhouette-people-unknown-male-person-260nw-1372192277.jpg" alt="Generic placeholder image" style="width:200px;height:250px;">
                             <div class="media-body">
-                                <label>Customer name:</label>
-                                <p class="mt-0"> @usL.userList[object2].Name</p>
-                                <label>Phone number:</label>
-                                <p>@usL.userList[object2].PhoneNumber</p>
-                                <label>Email:</label>
-                                <p>@usL.userList[object2].Email</p>
-                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="navigatetoCustomerAccounting">Accounting</BSButton>
-                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => deleteCustomer(object2))">End</BSButton>
+                                <label>User name:</label>
+                                <h3 class="mt-0"> @bkl.bookingList[object2].UserName</h3>
+                                <label>Room name:</label>
+                                <p>@bkl.bookingList[object2].Room_Name</p>
+                                <label>Date pick in advance:</label>
+                                <BSBasicInput InputType="InputType.Date" Value="bkl.bookingList[object2].DatePickInAdvance" IsDisabled="true"></BSBasicInput>
+                                <BSButton Class="p-3" Color=Color.Primary Size=Size.ExtraSmall OnClick="@(() => acceptCustomer(object2))">Accept</BSButton>
+                                <BSButton Class="p-3" Color=Color.Danger Size=Size.ExtraSmall OnClick="@(() => declineCustomer(object2))">Decline</BSButton>
                             </div>
                         </div>
                     }
@@ -238,9 +236,10 @@
     [Parameter]
     public int PageId { get; set; }
 
+
     string URLPage(int numPage)
     {
-        string temp = "/staff/customermanagement/" + numPage.ToString();
+        string temp = "/staff/bookingmanagement/" + numPage.ToString();
         return temp;
     }
 
@@ -256,44 +255,58 @@
         else return false;
     }
 
-    Pagination model = new Pagination(45, 8);
+    Pagination model = new Pagination(32, 8);
 
-    UserList Org = new UserList(45);
+    BookingList Org = new BookingList(32);
 
-    UserList usL;
+    BookingList bkl;
 
     protected override void OnInitialized()
     {
-        usL = Org;
+        bkl = new BookingList();
+        BookingData emptyBooking = new BookingData();
+        bkl.bookingList.Add(emptyBooking);
+        for (int i = 1; i < Org.bookingList.Count; i++)
+        {
+            //if (Org.bookingList[i].HotelName == HotelName)
+            bkl.bookingList.Add(Org.bookingList[i]);
+        }
+        model = new Pagination(bkl.bookingList.Count, 8);
+
     }
 
     string srchStr = string.Empty;
 
     void search()
     {
-        nvg.NavigateTo("/staff/customermanagement");
-        usL = new UserList();
-        UserData emptyUser = new UserData();
-        usL.userList.Add(emptyUser);
-        for (int i = 1; i < Org.userList.Count; i++)
+        nvg.NavigateTo("/manager/bookingstatus");
+        bkl = new BookingList();
+        BookingData emptyBooking = new BookingData();
+        bkl.bookingList.Add(emptyBooking);
+        for (int i = 1; i < Org.bookingList.Count; i++)
         {
-            if (Org.userList[i].Name.Contains(srchStr, StringComparison.OrdinalIgnoreCase))
-                usL.userList.Add(Org.userList[i]);
+            if (Org.bookingList[i].UserName.Contains(srchStr, StringComparison.OrdinalIgnoreCase))
+                bkl.bookingList.Add(Org.bookingList[i]);
         }
-        model = new Pagination(usL.userList.Count, 8);
+        model = new Pagination(bkl.bookingList.Count, 8);
     }
 
-    void deleteCustomer(int num)
+    void acceptCustomer(int num)
     {
-        UserData temp = usL.userList[num];
-        Org.userList.Remove(temp);
-        usL.userList.Remove(temp);
-        model = new Pagination(usL.userList.Count, 8);
-        nvg.NavigateTo("/staff/customermanagement");
+        //add customer to customer management
+        BookingData temp = bkl.bookingList[num];
+        Org.bookingList.Remove(temp);
+        bkl.bookingList.Remove(temp);
+        model = new Pagination(bkl.bookingList.Count, 8);
+        nvg.NavigateTo("/staff/bookingmanagement");
     }
 
-    void navigatetoCustomerAccounting()
+    void declineCustomer(int num)
     {
-        nvg.NavigateTo("staff/customeraccounting");
+        BookingData temp = bkl.bookingList[num];
+        Org.bookingList.Remove(temp);
+        bkl.bookingList.Remove(temp);
+        model = new Pagination(bkl.bookingList.Count, 8);
+        nvg.NavigateTo("/staff/bookingmanagement");
     }
 }

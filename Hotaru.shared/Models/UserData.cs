@@ -27,6 +27,9 @@ namespace Hotaru.shared.Models
 
         [Required]
         public int Ages { get; set; }
+
+        public string UserID { get; set; }
+
         public UserData(string sName, string sEmail, string sPassword, string sPhoneNumber, string sAddress, int iAges)
         {
             Name = sName;

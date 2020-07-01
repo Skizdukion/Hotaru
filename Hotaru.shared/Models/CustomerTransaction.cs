@@ -10,6 +10,12 @@ namespace Hotaru.shared.Models
 
         public string CustomerName { get; set; }
 
+        public string CustomerID { get; set; }
+
+        public string HotelID { get; set; }
+
+        public string StaffID { get; set; }
+
         public string AccountingName { get; set; }
 
         public DateTime DatePickInAdvance { get; set; }

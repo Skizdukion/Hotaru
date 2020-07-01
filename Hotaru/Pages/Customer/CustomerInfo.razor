@@ -14,6 +14,7 @@
                     <BSCard CardType="CardType.Title">@model.Name</BSCard>
 
                     <BSCard CardType="CardType.Subtitle">@model.Ages years old</BSCard>
+                    <BSCard CardType="CardType.Text">ID: @model.UserID</BSCard>
                     <BSCard CardType="CardType.Text">
                         @if (model.state == "Transaction Confirm")
                         {
@@ -23,7 +24,7 @@
                         {
                             @model.state
                         }
-                        <br/>
+                        <br />
                         <BSButton>Change Photo</BSButton>
                     </BSCard>
                 </BSCard>
@@ -250,4 +251,8 @@
         IsChangingPassword = false;
     }
 
+    protected override void OnInitialized()
+    {
+        model.UserID = "Random ID";
+    }
 }

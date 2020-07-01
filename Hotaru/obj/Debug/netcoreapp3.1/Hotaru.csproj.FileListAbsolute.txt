@@ -155,7 +155,6 @@ G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Manager\CustomerAccounting.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Manager\CustomerManagement.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Manager\DataReport.razor.g.cs
-G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Manager\HotelBookingStatus.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Manager\Hotelinfo.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Manager\ManagerInfo.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Manager\StaffManagement.razor.g.cs
@@ -188,7 +187,6 @@ G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Manager\Add
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Manager\CustomerAccounting.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Manager\CustomerManagement.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Manager\DataReport.razor.g.cs
-G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Manager\HotelBookingStatus.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Manager\Hotelinfo.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Manager\ManagerInfo.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Manager\StaffManagement.razor.g.cs
@@ -238,3 +236,11 @@ G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Customer\Tr
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Customer\TransactionObjectView.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Customer\BookingView.razor.g.cs
 G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Customer\BookingView.razor.g.cs
+G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Manager\BookingManagement.razor.g.cs
+G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Manager\OfflineBooking.razor.g.cs
+G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Staff\BookingManagement.razor.g.cs
+G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Staff\OfflineBooking.razor.g.cs
+G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Manager\BookingManagement.razor.g.cs
+G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Manager\OfflineBooking.razor.g.cs
+G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Staff\BookingManagement.razor.g.cs
+G:\Desktop\project\Hotaru\Hotaru\obj\Debug\netcoreapp3.1\Razor\Pages\Staff\OfflineBooking.razor.g.cs
